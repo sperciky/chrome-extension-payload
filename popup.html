@@ -19,11 +19,12 @@
         <strong>Error:</strong> <span id="errorText"></span>
       </div>
 
-      <!-- Formatted Data Section -->
-      <div class="section">
-        <h2>Formatted Data</h2>
-        <div class="data-display" id="formattedData">
-          <div class="loading">Waiting for data...</div>
+      <!-- Formatted JSON Section (MPv2 only) - Show first -->
+      <div class="section" id="formattedJsonSection" style="display: none;">
+        <h2>Formatted JSON</h2>
+        <div class="query-string-container">
+          <div class="formatted-json-display" id="formattedJson"></div>
+          <button class="copy-btn" id="copyJsonBtn">Copy Formatted JSON</button>
         </div>
       </div>
 
@@ -36,12 +37,11 @@
         </div>
       </div>
 
-      <!-- Formatted JSON Section (MPv2 only) -->
-      <div class="section" id="formattedJsonSection" style="display: none;">
-        <h2>Formatted JSON</h2>
-        <div class="query-string-container">
-          <div class="query-string" id="formattedJson"></div>
-          <button class="copy-btn" id="copyJsonBtn">Copy Formatted JSON</button>
+      <!-- Parsed Data Section -->
+      <div class="section">
+        <h2>Parsed Data</h2>
+        <div class="data-display" id="formattedData">
+          <div class="loading">Waiting for data...</div>
         </div>
       </div>
 
