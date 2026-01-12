@@ -138,6 +138,9 @@ function formatMPv2(data) {
 
     container.appendChild(eventsDiv);
   }
+
+  // Generate formatted JSON for MPv2
+  generateFormattedJson(data);
 }
 
 // Format a single event
@@ -296,6 +299,37 @@ function generateQueryString(data) {
       copyBtn.textContent = 'Copy Failed';
       setTimeout(() => {
         copyBtn.textContent = 'Copy Query String';
+      }, 2000);
+    });
+  };
+}
+
+// Generate formatted JSON for MPv2
+function generateFormattedJson(data) {
+  const formattedJsonSection = document.getElementById('formattedJsonSection');
+  formattedJsonSection.style.display = 'block';
+
+  const formattedJsonDiv = document.getElementById('formattedJson');
+
+  // Format JSON with 4 spaces indentation
+  const formattedJson = JSON.stringify(data, null, 4);
+  formattedJsonDiv.textContent = formattedJson;
+
+  // Setup copy button
+  const copyBtn = document.getElementById('copyJsonBtn');
+  copyBtn.onclick = () => {
+    navigator.clipboard.writeText(formattedJson).then(() => {
+      copyBtn.textContent = 'Copied!';
+      copyBtn.classList.add('copied');
+      setTimeout(() => {
+        copyBtn.textContent = 'Copy Formatted JSON';
+        copyBtn.classList.remove('copied');
+      }, 2000);
+    }).catch(err => {
+      console.error('Failed to copy:', err);
+      copyBtn.textContent = 'Copy Failed';
+      setTimeout(() => {
+        copyBtn.textContent = 'Copy Formatted JSON';
       }, 2000);
     });
   };
