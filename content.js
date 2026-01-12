@@ -133,7 +133,7 @@ function openPopup(data) {
     if (e.target === overlay) {
       overlay.remove();
     }
-  });
+  }, { passive: true });
 }
 
 // Show notification message

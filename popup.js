@@ -3,7 +3,7 @@ window.addEventListener('message', (event) => {
   if (event.data.type === 'MP_DATA') {
     processData(event.data.data);
   }
-});
+}, { passive: true });
 
 // Process the incoming data
 function processData(rawData) {
