@@ -21,7 +21,7 @@
   "web_accessible_resources": [
     {
       "resources": ["popup.html", "popup.js", "popup.css"],
-      "matches": ["https://docs.google.com/spreadsheets/*"]
+      "matches": ["https://docs.google.com/*"]
     }
   ],
   "icons": {
