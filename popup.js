@@ -5,6 +5,49 @@ window.addEventListener('message', (event) => {
   }
 }, { passive: true });
 
+// Helper function to copy text to clipboard (works in iframes)
+function copyToClipboard(text) {
+  return new Promise((resolve, reject) => {
+    // Try modern Clipboard API first
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text)
+        .then(resolve)
+        .catch(() => {
+          // Fallback to execCommand if Clipboard API fails
+          fallbackCopyToClipboard(text, resolve, reject);
+        });
+    } else {
+      // Use fallback directly if Clipboard API not available
+      fallbackCopyToClipboard(text, resolve, reject);
+    }
+  });
+}
+
+// Fallback copy method using execCommand (works in iframes)
+function fallbackCopyToClipboard(text, resolve, reject) {
+  const textArea = document.createElement('textarea');
+  textArea.value = text;
+  textArea.style.position = 'fixed';
+  textArea.style.left = '-999999px';
+  textArea.style.top = '-999999px';
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+
+  try {
+    const successful = document.execCommand('copy');
+    textArea.remove();
+    if (successful) {
+      resolve();
+    } else {
+      reject(new Error('execCommand failed'));
+    }
+  } catch (err) {
+    textArea.remove();
+    reject(err);
+  }
+}
+
 // Process the incoming data
 function processData(rawData) {
   try {
@@ -287,7 +330,7 @@ function generateQueryString(data) {
   copyBtn.onclick = () => {
     // Copy the full URL-encoded query string (without newlines)
     const fullQueryString = params.join('&');
-    navigator.clipboard.writeText(fullQueryString).then(() => {
+    copyToClipboard(fullQueryString).then(() => {
       copyBtn.textContent = 'Copied!';
       copyBtn.classList.add('copied');
       setTimeout(() => {
@@ -318,7 +361,7 @@ function generateFormattedJson(data) {
   // Setup copy button
   const copyBtn = document.getElementById('copyJsonBtn');
   copyBtn.onclick = () => {
-    navigator.clipboard.writeText(formattedJson).then(() => {
+    copyToClipboard(formattedJson).then(() => {
       copyBtn.textContent = 'Copied!';
       copyBtn.classList.add('copied');
       setTimeout(() => {
