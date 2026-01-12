@@ -1,0 +1,250 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f8f9fa;
+  color: #202124;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header {
+  background: linear-gradient(135deg, #1a73e8 0%, #1557b0 100%);
+  color: white;
+  padding: 20px 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.protocol-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 6px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+.protocol-badge.mpv1 {
+  background: rgba(234, 67, 53, 0.9);
+}
+
+.protocol-badge.mpv2 {
+  background: rgba(52, 168, 83, 0.9);
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 30px;
+}
+
+.section {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.section h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #1a73e8;
+  border-bottom: 2px solid #e8eaed;
+  padding-bottom: 8px;
+}
+
+.loading {
+  text-align: center;
+  color: #5f6368;
+  padding: 20px;
+  font-style: italic;
+}
+
+.error-message {
+  background: #fce8e6;
+  border: 1px solid #ea4335;
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 20px;
+  color: #c5221f;
+}
+
+.error-message strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.data-display {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.param-group {
+  margin-bottom: 20px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 4px;
+  border-left: 3px solid #1a73e8;
+}
+
+.param-row {
+  display: flex;
+  padding: 6px 0;
+  border-bottom: 1px solid #e8eaed;
+}
+
+.param-row:last-child {
+  border-bottom: none;
+}
+
+.param-key {
+  font-weight: 600;
+  color: #1a73e8;
+  min-width: 200px;
+  flex-shrink: 0;
+}
+
+.param-value {
+  color: #202124;
+  word-break: break-all;
+  flex: 1;
+}
+
+.param-value.json {
+  background: #f1f3f4;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: pre-wrap;
+}
+
+.event-item {
+  background: #e8f0fe;
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-left: 3px solid #1a73e8;
+}
+
+.event-name {
+  font-weight: 700;
+  color: #1a73e8;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.query-string-container {
+  position: relative;
+}
+
+.query-string {
+  background: #f1f3f4;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  padding: 16px;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 12px;
+  word-break: break-all;
+  max-height: 300px;
+  overflow-y: auto;
+  line-height: 1.6;
+  color: #202124;
+  white-space: pre-wrap;
+}
+
+.copy-btn {
+  margin-top: 12px;
+  padding: 10px 20px;
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+  background: #1557b0;
+}
+
+.copy-btn:active {
+  transform: scale(0.98);
+}
+
+.copy-btn.copied {
+  background: #34a853;
+}
+
+.raw-data {
+  background: #f1f3f4;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  padding: 16px;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 12px;
+  word-break: break-all;
+  max-height: 300px;
+  overflow-y: auto;
+  line-height: 1.6;
+  color: #202124;
+  white-space: pre-wrap;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f3f4;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #dadce0;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #bdc1c6;
+}
+
+/* Animation for data load */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.param-group,
+.event-item {
+  animation: fadeIn 0.3s ease;
+}
