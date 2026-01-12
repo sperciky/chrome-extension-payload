@@ -5,7 +5,8 @@
   "description": "Format and beautify Google Measurement Protocol (MPv1 and MPv2) data in Google Sheets",
   "permissions": [
     "activeTab",
-    "scripting"
+    "scripting",
+    "storage"
   ],
   "host_permissions": [
     "https://docs.google.com/spreadsheets/*"
@@ -28,5 +29,14 @@
     "16": "icon16.png",
     "48": "icon48.png",
     "128": "icon128.png"
+  },
+  "action": {
+    "default_popup": "action_popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    },
+    "default_title": "MP Data Formatter Settings"
   }
 }
