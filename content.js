@@ -1,35 +1,54 @@
 // Create and inject the button in the bottom right corner
 function createMPButton() {
+  console.log('[MP Formatter] createMPButton called');
+
   // Check if button already exists
   if (document.getElementById('mp-formatter-button')) {
+    console.log('[MP Formatter] Button already exists, skipping creation');
     return;
   }
 
-  const button = document.createElement('button');
-  button.id = 'mp-formatter-button';
-  button.textContent = 'Format MP Data';
-  button.className = 'mp-formatter-btn';
+  // Check if extension is enabled
+  chrome.storage.sync.get(['extensionEnabled'], (result) => {
+    const isEnabled = result.extensionEnabled !== false; // Default to true
+    console.log('[MP Formatter] Extension enabled status:', isEnabled);
 
-  button.addEventListener('click', handleButtonClick);
+    if (!isEnabled) {
+      console.log('[MP Formatter] Extension is disabled, not creating button');
+      return;
+    }
 
-  document.body.appendChild(button);
+    const button = document.createElement('button');
+    button.id = 'mp-formatter-button';
+    button.textContent = 'Format MP Data';
+    button.className = 'mp-formatter-btn';
+
+    button.addEventListener('click', handleButtonClick);
+
+    document.body.appendChild(button);
+    console.log('[MP Formatter] Button created and appended to body');
+  });
 }
 
 // Handle button click - get active cell data
 async function handleButtonClick() {
+  console.log('[MP Formatter] Button clicked');
   try {
     // Try to get the selected cell's value
     const cellData = getActiveCellData();
+    console.log('[MP Formatter] Cell data extracted:', cellData ? cellData.substring(0, 100) + '...' : 'null');
 
     if (!cellData) {
+      console.log('[MP Formatter] No cell data found, showing notification');
       showNotification('Please select a cell with MP data');
       return;
     }
 
     // Open popup with the data
+    console.log('[MP Formatter] Opening popup with data');
     openPopup(cellData);
   } catch (error) {
-    console.error('Error getting cell data:', error);
+    console.error('[MP Formatter] Error getting cell data:', error);
     showNotification('Error reading cell data');
   }
 }
@@ -136,22 +155,64 @@ function showNotification(message) {
 
 // Initialize when DOM is ready
 function init() {
+  console.log('[MP Formatter] Initializing extension');
+  console.log('[MP Formatter] Current URL:', window.location.href);
+  console.log('[MP Formatter] Document ready state:', document.readyState);
+
   // Wait for Google Sheets to load
+  let checkCount = 0;
   const checkInterval = setInterval(() => {
+    checkCount++;
+    console.log(`[MP Formatter] Check #${checkCount} - URL contains spreadsheets:`, window.location.href.includes('docs.google.com/spreadsheets'));
+
     // Check if we're on a Google Sheets page
     if (window.location.href.includes('docs.google.com/spreadsheets')) {
+      console.log('[MP Formatter] Google Sheets detected, creating button');
       createMPButton();
       clearInterval(checkInterval);
     }
   }, 1000);
 
   // Stop checking after 30 seconds
-  setTimeout(() => clearInterval(checkInterval), 30000);
+  setTimeout(() => {
+    console.log('[MP Formatter] Timeout reached, stopping checks');
+    clearInterval(checkInterval);
+  }, 30000);
 }
 
+// Listen for messages from the extension popup
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  console.log('[MP Formatter] Received message:', message);
+
+  if (message.type === 'EXTENSION_TOGGLE') {
+    const button = document.getElementById('mp-formatter-button');
+
+    if (message.enabled) {
+      // Enable extension - create button if it doesn't exist
+      if (!button) {
+        console.log('[MP Formatter] Creating button (extension enabled)');
+        createMPButton();
+      }
+    } else {
+      // Disable extension - remove button if it exists
+      if (button) {
+        console.log('[MP Formatter] Removing button (extension disabled)');
+        button.remove();
+      }
+    }
+
+    sendResponse({ success: true });
+  }
+});
+
 // Start initialization
+console.log('[MP Formatter] Content script loaded');
+console.log('[MP Formatter] Document ready state:', document.readyState);
+
 if (document.readyState === 'loading') {
+  console.log('[MP Formatter] Waiting for DOMContentLoaded');
   document.addEventListener('DOMContentLoaded', init);
 } else {
+  console.log('[MP Formatter] DOM already loaded, initializing immediately');
   init();
 }

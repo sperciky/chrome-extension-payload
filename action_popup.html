@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MP Formatter Settings</title>
+  <link rel="stylesheet" href="action_popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <div class="header">
+      <img src="icon48.png" alt="MP Formatter" class="logo">
+      <h1>MP Data Formatter</h1>
+    </div>
+
+    <div class="content">
+      <div class="toggle-section">
+        <div class="toggle-info">
+          <h2>Extension Status</h2>
+          <p id="statusText">Extension is enabled</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="enableToggle" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="info-section">
+        <h3>How to use:</h3>
+        <ol>
+          <li>Open a Google Sheets document</li>
+          <li>Select a cell with MP data (JSON format)</li>
+          <li>Click the blue "Format MP Data" button</li>
+        </ol>
+      </div>
+
+      <div class="stats-section">
+        <h3>Quick Info:</h3>
+        <div class="stat-item">
+          <span class="stat-label">Supported formats:</span>
+          <span class="stat-value">MPv1 & MPv2</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Version:</span>
+          <span class="stat-value">1.0.0</span>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button id="reloadBtn" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M13.65 2.35C12.2 0.9 10.21 0 8 0 3.58 0 0.01 3.58 0.01 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L9 7h7V0l-2.35 2.35z" fill="currentColor"/>
+          </svg>
+          Reload Extension
+        </button>
+        <button id="openDocsBtn" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M14 0H2C0.9 0 0 0.9 0 2v12c0 1.1 0.9 2 2 2h12c1.1 0 2-0.9 2-2V2c0-1.1-0.9-2-2-2zm-1 9H9v4H7V9H3V7h4V3h2v4h4v2z" fill="currentColor"/>
+          </svg>
+          Documentation
+        </button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>Made with ❤️ for data analysts</p>
+    </div>
+  </div>
+
+  <script src="action_popup.js"></script>
+</body>
+</html>
