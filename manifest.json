@@ -16,7 +16,8 @@
       "matches": ["https://docs.google.com/spreadsheets/d/*"],
       "js": ["content.js"],
       "css": ["content.css"],
-      "run_at": "document_idle"
+      "run_at": "document_start",
+      "all_frames": false
     }
   ],
   "web_accessible_resources": [
