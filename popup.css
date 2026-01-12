@@ -172,6 +172,20 @@ body {
   white-space: pre-wrap;
 }
 
+.formatted-json-display {
+  background: #f1f3f4;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  padding: 16px;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 12px;
+  word-break: break-all;
+  line-height: 1.6;
+  color: #202124;
+  white-space: pre-wrap;
+  /* No max-height or overflow - show all content */
+}
+
 .copy-btn {
   margin-top: 12px;
   padding: 10px 20px;
